@@ -1,0 +1,14 @@
+1. create a validation
+2. improve Schema
+
+
+
+//learn
+1. rest and spred operator in array and object in js
+2. debugging in nodejs project
+3. comment portion
+4. populate method
+5. cookies parser
+
+
+1.likes on comment

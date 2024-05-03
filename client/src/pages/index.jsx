@@ -1,0 +1,11 @@
+import About from './About';
+import CreatePost from './CreatePost';
+import Dashboard from './Dashboard';
+import Home from "./Home";
+import PostPage from './PostPage';
+import Projects from './Projects';
+import Search from './Search';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import UpdatePost from './UpdatePost';
+export {Home, About,CreatePost,Dashboard,PostPage,Projects,Search,SignIn,SignUp,UpdatePost};
