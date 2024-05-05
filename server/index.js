@@ -8,9 +8,11 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/user.routes.js';
 import blogRoutes from './routes/blog.routes.js';
 import commentRoutes from './routes/comment.routes.js';
+import path from 'path'
 
 const app = express();
 let port = 4000;
+
 
 //middleware
 app.use(express.json());
@@ -24,6 +26,12 @@ app.use("/api/user", userRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/comment", commentRoutes);
 
+const __dirname = path.resolve()
+app.use(express.static(path.join(__dirname,'/client/dist')));
+
+app.get("*",(req,res) => {
+    res.sendFile(path.join((__dirname,'client','dist','index.hmlt')))
+});
 
 app.listen(port ,() =>{
     console.log(`server is running on port number ${port}`)
