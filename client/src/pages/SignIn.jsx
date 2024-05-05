@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import { Link, useNavigate } from 'react-router-dom'
-import themeImage from '../assets/theme-image.jpg'
 import { useDispatch, useSelector } from 'react-redux'
-import { signInFailure, signInSuccess,signInstart } from '../redux/user/userSlice'
+import { reset, signInFailure, signInSuccess,signInstart} from '../redux/user/userSlice'
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -42,17 +41,10 @@ const SignIn = () => {
   }
 
   return (
-    <div className='my-28 md:mt-56'>
-      <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
-        {/* left */}
-        <div className='flex-1'>
-          <Link to="/">
-            <img className='rounded-lg' src={themeImage} alt="theme" style={{ "height": "300px", width: "300px" }} />
-          </Link>
-        </div>
-        {/* right */}
-        <div className='flex-1'>
-          <form action="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <div className='flex items-center h-[93vh]'>
+      <div className='flex p-3 w-96 lg:max-w-3xl mx-auto flex-col md:flex-row md:items-center'>
+        <div className='flex-1 '>
+          <form className="flex flex-col gap-4" onSubmit= {handleSubmit}>
             <div>
               <Label value="Your email" />
               <TextInput
@@ -60,6 +52,7 @@ const SignIn = () => {
                 placeholder="name@company.com"
                 id="email"
                 onChange={handleChange}
+                onClick={() => dispatch(reset())}
               />
             </div>
             <div>
@@ -69,9 +62,10 @@ const SignIn = () => {
                 placeholder="Password"
                 id="password"
                 onChange={handleChange}
+                onClick={() => dispatch(reset())}
               />
             </div>
-            <Button gradientDuoTone='purpleToPink' type='submit' disabled={loading} className='mt-5 w-96 sm:w-full'>
+            <Button gradientDuoTone='purpleToPink' type='submit' disabled={loading} className='mt-5 sm:w-full'>
               {loading ?
                 (
                   <>
@@ -100,4 +94,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignIn 

@@ -2,8 +2,9 @@ import React, { useEffect, useReducer, useState } from 'react'
 import { Sidebar, TextInput, Select, Button } from 'flowbite-react'
 import PostCard from '../components/PostCard'
 import { useLocation, useNavigate } from 'react-router-dom'
-const Search = () => {
 
+
+const Search = () => {
   const [sidebarData, setSidebarData] = useState({ searchTerm: '', sort: 'desc', category: 'uncategorized' })
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -29,13 +30,13 @@ const Search = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/blog/getblogs?${searchQuery}`);
+      const res = await fetch(`/api/blog/search?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
         return
       }
       if (res.ok) {
-        debugger
+        
         const data = await res.json();
         setPosts(data.blogs);
         setLoading(false);
@@ -65,10 +66,11 @@ const Search = () => {
 
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    debugger
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
-    urlParams.set('setSearchTerm',sidebarData.searchTerm);
+    urlParams.set('searchTerm',sidebarData.searchTerm);
     urlParams.set('sort',sidebarData.sort);
     urlParams.set('category',sidebarData.category);
 
@@ -98,11 +100,12 @@ const Search = () => {
 
   return (
     <div className='flex flex-col md:flex-row'>
-      <div className='p-7 border-b md:border-r md:min-h-screen border-gray-500'>
+      {/* sidebar */}
+      <div className='p-7 border-b w-full md:w-72 md:border-r md:min-h-screen border-gray-500 fixed z-10'>
         <form className='flex flex-col gap-8' onSubmit={handleSubmit}>
           <div className="flex items-center gap-2">
             <label className='whitespace-nowrap font-semibold'>
-              Search Term:
+                Term:
             </label>
             <TextInput
               placeholder='Search...'
@@ -135,11 +138,12 @@ const Search = () => {
           </Button>
         </form>
       </div>
-      <div className="w-full">
-        <h1 className='text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5'>
+      {/* sidebar end here */}
+      <div className="mt-80 md:mt-0 md:ml-72 ">
+        <h1 className='text-3xl w-full font-semibold sm:border-b border-gray-500 p-3 mt-5 fixed z-20 bg-'>
           Post Results
         </h1>
-        <div className='p-7 flex flex-wrap gap-4'>
+        <div className='p-7 flex flex-wrap gap-4 mt-20'>
           {!loading && posts.length == 0 && (
             <p className='text-xl text-grap-500'>No posts found.</p>
           )}
@@ -159,4 +163,4 @@ const Search = () => {
   )
 }
 
-export default Search;
+export default Search; 

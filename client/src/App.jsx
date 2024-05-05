@@ -6,8 +6,10 @@ let count = 0;
 const App = () => {
   console.log("app render", ++count);
   return (
+    <div className='h-100vh overflow-hidden'>
     <BrowserRouter>
       <Header />
+      <div className='mt-[62px]'>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -25,8 +27,10 @@ const App = () => {
           <Route path="/update-blog/:blogId" element={<Projects />} />
         </Route>
       </Routes>
-      <Footer/>
+      </div>
+      {/* <Footer/> */}
     </BrowserRouter>
+    </div>
   )
 }
 

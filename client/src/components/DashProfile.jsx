@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Alert, Button, TextInput, Modal, } from 'flowbite-react'
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import { updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserFailure, deleteUserSuccess, signOutSuccess } from '../redux/user/userSlice'
+import { updateStart, updateSuccess, updateFailure, deleteUserStart, deleteUserFailure, deleteUserSuccess, signOutSuccess, reset } from '../redux/user/userSlice'
 import { app } from '../firebase';
 import { Link } from 'react-router-dom'
 
 const DashProfile = () => {
-  const { currentUser } = useSelector((state) => state.user)
+  const { currentUser,error: errorMessage } = useSelector((state) => state.user)
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUplaodError, setimageFileUplaodError] = useState(null);
@@ -69,6 +69,8 @@ const DashProfile = () => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          
+          setImageFileUploadProgress(null);
           setImageFileUrl(downloadURL);
           setFormData({ ...formData, profilePicture: downloadURL });
           setImageFileUploading(false);
@@ -100,17 +102,23 @@ const DashProfile = () => {
       });
       const data = await res.json();
       if (!res.ok) {
-        dispatch(updateFailure(data.messge));
-        setupdateUserError(data.messge);
+        dispatch(updateFailure(data.message));
+        setupdateUserError(data.message);
       } else {
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("Use's profile update successully")
       }
     } catch (error) {
-      dispatch(updateFailure(error.messge));
-      setupdateUserError(error.messge)
+      dispatch(updateFailure(error.message));
+      setupdateUserError(error.mesasge)
+      setError(error.message);
     }
+  }
 
+  const handleReset = () => {
+    dispatch(reset());
+    setupdateUserError(null);
+    setUpdateUserSuccess(null);
   }
 
   const handleSignout = async () => {
@@ -127,7 +135,7 @@ const DashProfile = () => {
    }
 
   return (
-    <div className='max-w-lg mx-auto p-3 w-full'>
+    <div className='max-w-lg h-[93vh] mx-auto p-3 w-full'>
       <h1 className='m-7 text-center font-semibold text-3xl'>Profile</h1>
       <form action="" className='flex flex-col gap-5' onSubmit={handleSubmit}>
         <input type="file" accept='image/*' onChange={handleImageChnage} ref={filePickerRef} hidden />
@@ -163,15 +171,15 @@ const DashProfile = () => {
         )}
 
         <TextInput
-          type="text" id="username" placeholder="username" defaultValue={currentUser.username} onChange={handleChange}
+          type="text" id="username" placeholder="username" defaultValue={currentUser.username} onChange={handleChange} onClick={handleReset}
         />
 
         <TextInput
-          type="email" id="email" placeholder="email" defaultValue={currentUser.email} onChange={handleChange}
+          type="email" id="email" placeholder="email" defaultValue={currentUser.email} onChange={handleChange} onClick={handleReset}
         />
 
         <TextInput
-          type="password" id="password" placeholder="passwrd" defaultValue={currentUser.password} onChange={handleChange}
+          type="password" id="password" placeholder="passwrd" defaultValue={currentUser.password} onChange={handleChange} onClick={handleReset}
         />
 
         <Button type='submit' gradientDuoTone='purpleToBlue' outline>{loading ? 'loading...' : 'Update'}</Button>
@@ -193,8 +201,8 @@ const DashProfile = () => {
       {updateUserError && (
         <Alert color="failure" className='mt-5'>{updateUserError}</Alert>
       )}
-      {error && (
-        <Alert color="failure" className='mt-5'>{error}</Alert>
+      {errorMessage && (
+        <Alert color="failure" className='mt-5'>{errorMessage}</Alert>
       )}
 
       <Modal show={showModel} onClose={() => setShowModel(false)} popup size='md'>

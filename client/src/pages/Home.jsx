@@ -32,17 +32,17 @@ const Home = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center lg:flex-row mx-auto min-h-[85vh] gap-5'>
-        <div className="flex flex-col gap-10  mx-auto">
+    {/*  <div className='flex flex-col justify-center items-center lg:flex-row mx-auto min-h-[85vh] gap-5'>
+         <div className="flex flex-col gap-10  mx-auto">
           <h1 className='text-9xl'>Stay curious.</h1>
           <h2>Discver stories, thinking, and expertise from writers on any topic.</h2>
           <p>Here you'll find a variety of articles and tutorials on topics such as web development, software engineering, and programming languages.</p>
           <Button gradientDuoTone='purpleToBlue'>Start Reading</Button>
-        </div>
+        </div> */}
         {/* <div className=''>
           <img className='h-96 w-full' src='https://firebasestorage.googleapis.com/v0/b/image-and-docs.appspot.com/o/blog-App%2FBlog%2FImage%2F1707495082651-vlcsnap-2018-01-23-16h28m34s374.png?alt=media&token=a549c990-f20b-448d-8bb4-423e0f178626'></img>
-        </div> */}
-      </div>
+        </div> 
+      </div>*/}
       <div className='max-w-8xl mx-auto p-3 flex flex-col gap-8 py-7'>
         {recentPosts && recentPosts.length > 0 && (
           <div className='flex flex-col gap-6'>

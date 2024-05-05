@@ -47,13 +47,13 @@ const Header = () => {
       console.log(error.nesssage)
     }
   }
+
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='border-b-2 fixed w-full f-full z-50 shadow-md shadow-teal-100'>
       <Link to="/" className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white">
-        <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>Your's</span>
-        Blog
+        <span className='text-black dark:text-white'>Prashant's Blog</span>
       </Link>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='hidden lg:inline-block'>
         <TextInput
           type="text"
           placeholder='Search...'
@@ -110,7 +110,7 @@ const Header = () => {
           <Link to="/about">About</Link>
         </Navbar.Link>
         <Navbar.Link active={path === "/projects"} as={'div'}>
-          <Link to="/">Projects</Link>
+          <Link to="/projects">Projects</Link>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

@@ -151,8 +151,29 @@ export const gatBlogByTag = async (req, res, next) => {
 
 }
 
+// todo : for now working fine but can update to get the value based on category only
 export const search = async (req, res, next) => {
+    try {
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = parseInt(req.query.limit) || 0;
+        const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+        const blogs = await Blog.find({
+            ...(req.query.searchTerm && {
+                $or : [
+                    {title : {$regex : req.query.searchTerm, $options : 'i'}},
+                    {content : {$regex : req.query.searchTerm, $options : 'i'}}
+                ]
+            }),
+        }).sort({updatedAt : sortDirection})
+        .skip(startIndex)
+        .limit(limit);
 
+        res.status(200).json({
+            blogs
+        })
+    } catch (error) {  
+        next(error);
+    }
 }
 
 export const random = async (req, res, next) => {

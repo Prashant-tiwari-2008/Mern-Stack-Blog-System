@@ -74,7 +74,7 @@ const CommentSection = ({ currentBlogId }) => {
       const res = await fetch(`/api/comment/likeComment/${commentId}`)
       const data = await res.json();
       if (res.ok) {
-        debugger
+        
         setComments(comments.map((comment) => 
           comment._id == commentId ?
             {

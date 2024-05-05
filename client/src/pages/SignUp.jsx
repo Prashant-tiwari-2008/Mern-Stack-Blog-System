@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react'
 import { Link, useNavigate } from 'react-router-dom';
-import themeImage from '../assets/theme-image.jpg'
 const SignUp = () => {
   const baseUrl = "http://localhost:4000"
   const[loading,setLoading] = useState(false);
@@ -41,15 +40,8 @@ const SignUp = () => {
   }
 
   return (
-    <div className='mt-28 md:mt-56'>
-      <div className='flex p-3 max-w-3xl mx-auto flex-col md:flex-row md:items-center gap-5'>
-        {/* left */}
-        <div className='flex-1'>
-          <Link to="/">
-            <img className='rounded-lg' src={themeImage} alt="theme" style={{"height":"300px", width:"300px"}}/>
-            </Link>
-        </div>
-        {/* right */}
+    <div className='flex items-center h-[93vh]'>
+      <div className='flex p-3 w-96 max-w-3xl mx-auto flex-col md:flex-row md:items-center'>
         <div className='flex-1'>
           <form action="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>

@@ -55,7 +55,7 @@ const DashComments = () => {
       })
       const data = await res.json();
       if (res.ok) {
-        debugger
+        
         console.log(data, "data");
         setComments((prev) => prev.filter((comment) => {
           comment._id !== commentIdToDelete
