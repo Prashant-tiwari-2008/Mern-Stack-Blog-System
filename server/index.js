@@ -10,6 +10,8 @@ import blogRoutes from './routes/blog.routes.js';
 import commentRoutes from './routes/comment.routes.js';
 import path from 'path'
 
+const __dirname = path.resolve()
+
 const app = express();
 let port = 4000;
 
@@ -26,7 +28,6 @@ app.use("/api/user", userRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/comment", commentRoutes);
 
-const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname,'/client/dist')));
 
 app.get("*",(req,res) => {
